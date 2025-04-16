@@ -61,10 +61,10 @@ def format_garmin_value(value, activity_type, typeId):
         minutes = total_seconds // 60
         seconds = total_seconds % 60
         formatted_value = f"{minutes}:{seconds:02d}"
-        total_pseconds = total_seconds / 1.60934  # Divide by 1.60934 to get pace per km
-        pminutes = int(total_pseconds // 60)      # Convert to integer
-        pseconds = int(total_pseconds % 60)       # Convert to integer
-        formatted_pace = f"{pminutes}:{pseconds:02d} /km"
+        # total_pseconds = total_seconds / 1.60934  # Divide by 1.60934 to get pace per km
+        # pminutes = int(total_pseconds // 60)      # Convert to integer
+        # pseconds = int(total_pseconds % 60)       # Convert to integer
+        formatted_pace = f"{minutes}:{seconds:02d} /mi"
         return formatted_value, formatted_pace
 
     if typeId == 3:  # 5K
@@ -72,10 +72,10 @@ def format_garmin_value(value, activity_type, typeId):
         minutes = total_seconds // 60
         seconds = total_seconds % 60
         formatted_value = f"{minutes}:{seconds:02d}"
-        total_pseconds = total_seconds // 5  # Divide by 5km
+        total_pseconds = total_seconds // 3.1  # Divide by 3.1 miles
         pminutes = total_pseconds // 60
         pseconds = total_pseconds % 60
-        formatted_pace = f"{pminutes}:{pseconds:02d} /km"
+        formatted_pace = f"{pminutes}:{pseconds:02d} /mi"
         return formatted_value, formatted_pace
 
     if typeId == 4:  # 10K
@@ -88,22 +88,23 @@ def format_garmin_value(value, activity_type, typeId):
             formatted_value = f"{hours}:{minutes:02d}:{seconds:02d}"
         else:
             formatted_value = f"{minutes}:{seconds:02d}"
-        total_pseconds = total_seconds // 10  # Divide by 10km
+        total_pseconds = total_seconds // 6.2  # Divide by 6.2 mi
         phours = total_pseconds // 3600
         pminutes = (total_pseconds % 3600) // 60
         pseconds = total_pseconds % 60
-        formatted_pace = f"{pminutes}:{pseconds:02d} /km"
+        formatted_pace = f"{pminutes}:{pseconds:02d} /mi"
         return formatted_value, formatted_pace
 
     if typeId in [7, 8]:  # Longest Run, Longest Ride
-        value_km = value / 1000
-        formatted_value = f"{value_km:.2f} km"
+        value_km = value / 1609
+        formatted_value = f"{value_km:.2f} mi"
         pace = ""  # No pace for these types
         return formatted_value, pace
 
     if typeId == 9:  # Total Ascent
         value_m = int(value)
-        formatted_value = f"{value_m:,} m"
+        value_mi = value_m / 3.28
+        formatted_value = f"{value_mi:,} ft."
         pace = ""
         return formatted_value, pace
 
