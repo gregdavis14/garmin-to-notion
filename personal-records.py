@@ -104,7 +104,7 @@ def format_garmin_value(value, activity_type, typeId):
     if typeId == 9:  # Total Ascent
         value_m = int(value)
         value_mi = value_m / 3.28
-        formatted_value = f"{value_mi:,} ft."
+        formatted_value = f"{value_mi:.2f} ft."
         pace = ""
         return formatted_value, pace
 
